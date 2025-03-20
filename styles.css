@@ -21,6 +21,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth; /* For smooth scrolling to anchor links */
+}
+
 body {
     font-family: var(--font-body);
     font-weight: 300; /* Light weight for most text */
@@ -37,6 +41,107 @@ body {
     margin: 0 auto;
     padding: 2rem;
     flex: 1; /* This makes the container take up all available space */
+}
+
+/* Home Page Specific Styles */
+.home-page {
+    background-color: var(--color-lightest); /* #eff6e0 as requested */
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh; /* Full viewport height */
+    padding: 0 10%;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.hero-name {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-darkest); /* #01161e as requested */
+    line-height: 1.1;
+}
+
+.hero-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--color-dark); /* #124559 as requested */
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 2rem;
+    color: var(--color-medium); /* #598392 as requested */
+}
+
+.scroll-indicator {
+    margin-top: 2rem;
+}
+
+.scroll-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    color: var(--color-darkest);
+    background-color: transparent;
+    border: 1px solid var(--color-darkest);
+    transition: all 0.3s ease;
+    transform: rotate(90deg);
+}
+
+.scroll-button:hover {
+    background-color: var(--color-darkest);
+    color: var(--color-lightest);
+}
+
+.social-links {
+    position: absolute;
+    bottom: 60px;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-links a {
+    color: var(--color-darkest);
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--color-medium);
+}
+
+/* About Section */
+.about-container {
+    min-height: 100vh;
+    background-color: var(--color-lightest);
+    display: flex;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    color: var(--color-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 /* Typography */
@@ -224,5 +329,31 @@ footer {
     
     .nav-links li {
         margin-left: 0;
+    }
+    
+    .home-container {
+        padding: 0 5%;
+    }
+    
+    .hero-name {
+        font-size: 3rem;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-name {
+        font-size: 2.5rem;
+    }
+    
+    .hero-title {
+        font-size: 1.2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
     }
 }
