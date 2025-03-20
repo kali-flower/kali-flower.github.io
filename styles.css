@@ -3,11 +3,11 @@
 
 /* Variables for the color palette */
 :root {
-    --color-darkest: #01161e;
-    --color-dark: #124559;
-    --color-medium: #598392;
-    --color-light: #aec3b0;
-    --color-lightest: #eff6e0;
+    --color-darkest: #1b0431;
+    --color-dark: #5f0f75;
+    --color-medium: #8f3c94;
+    --color-light: #cd78b0;
+    --color-lightest: #fbe5ec;
     
     /* Font variables */
     --font-heading: "IBM Plex Serif", serif;
@@ -166,14 +166,22 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0 0 0 0.5in; /* Changed padding to add space only on left */
 }
 
 .logo {
     font-size: 1.5rem;
-    font-weight: 600; /* Semibold for logo */
-    color: var(--color-lightest);
+    font-weight: 600;
+    color: var(--color-medium);
     font-family: var(--font-heading);
+    display: flex; 
+    align-items: center; /* Center vertically */
+    gap: 15px; /* Space between image and text */
+}
+
+.logo-icon {
+    height: 30px; /* Adjust size as needed */
+    width: auto;
 }
 
 .nav-links {
