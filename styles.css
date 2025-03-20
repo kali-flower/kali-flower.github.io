@@ -193,13 +193,33 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 2rem;
 }
 
+/* Add this to your existing CSS */
 .nav-links a {
     color: var(--color-lightest);
     text-decoration: none;
-    font-weight: 400; /* Regular weight for nav links */
+    font-weight: 400;
     transition: color 0.3s ease;
+    position: relative; /* Added for positioning the underline */
+    padding-bottom: 5px; /* Space for the underline */
 }
 
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-medium);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after, 
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Keep your existing hover styles as well */
 .nav-links a:hover, .nav-links a.active {
     color: var(--color-medium);
 }
