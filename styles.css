@@ -1,3 +1,6 @@
+/* Import IBM Plex Serif font family */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 /* Variables for the color palette */
 :root {
     --color-darkest: #01161e;
@@ -5,6 +8,10 @@
     --color-medium: #598392;
     --color-light: #aec3b0;
     --color-lightest: #eff6e0;
+    
+    /* Font variables */
+    --font-heading: "IBM Plex Serif", serif;
+    --font-body: "IBM Plex Serif", serif;
 }
 
 /* Base Styles */
@@ -15,20 +22,28 @@
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-body);
+    font-weight: 300; /* Light weight for most text */
     background-color: var(--color-lightest);
     color: var(--color-darkest);
     line-height: 1.6;
-    min-height: 100vh; 
+    min-height: 100vh; /* Set minimum height to full viewport height */
     display: flex;
-    flex-direction: column;     
+    flex-direction: column; /* Stack children vertically */
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
-    flex: 1; 
+    flex: 1; /* This makes the container take up all available space */
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600; /* Semibold for headings */
+    margin-bottom: 1rem;
 }
 
 /* Navigation */
@@ -51,8 +66,9 @@ body {
 
 .logo {
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 600; /* Semibold for logo */
     color: var(--color-lightest);
+    font-family: var(--font-heading);
 }
 
 .nav-links {
@@ -67,7 +83,7 @@ body {
 .nav-links a {
     color: var(--color-lightest);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 400; /* Regular weight for nav links */
     transition: color 0.3s ease;
 }
 
@@ -81,6 +97,7 @@ body {
     margin-bottom: 2rem;
     color: var(--color-dark);
     text-align: center;
+    font-weight: 700; /* Bold for main page title */
 }
 
 /* Projects Grid */
@@ -107,13 +124,15 @@ body {
 .project-description {
     padding: 1rem;
     color: var(--color-medium);
-    font-weight: 500;
+    font-weight: 400; /* Regular weight */
+    font-style: italic; /* Italic for the project description */
 }
 
 .project-title {
     padding: 0 1rem 1rem;
     color: var(--color-lightest);
     font-size: 1.5rem;
+    font-weight: 600; /* Semibold for project titles */
 }
 
 .project-image {
@@ -137,6 +156,7 @@ body {
     padding: 1rem;
     color: var(--color-light);
     font-size: 0.95rem;
+    font-weight: 300; /* Light weight for details */
 }
 
 .project-tech {
@@ -152,6 +172,7 @@ body {
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
+    font-weight: 400; /* Regular weight for tech tags */
 }
 
 .project-links {
@@ -175,7 +196,8 @@ footer {
     color: var(--color-lightest);
     padding: 1rem 0;
     text-align: center;
-    margin-top: auto; 
+    margin-top: auto; /* Makes footer stick to bottom */
+    font-weight: 300; /* Light weight for footer text */
 }
 
 .footer-content {
