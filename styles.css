@@ -130,15 +130,25 @@ body {
     position: absolute;
     bottom: 180px; /* Increased from 120px to move higher */
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 .social-links a {
-    color: var(--color-darkest);
+    color: var(--color-dark);
     transition: color 0.3s ease;
 }
 
 .social-links a:hover {
-    color: var(--color-medium);
+    color: var(--color-light);
+}
+
+.social-links svg {
+    width: 36px;
+    height: 36px;
+}
+
+/* For even larger icons on hover */
+.social-links a:hover svg {
+    transform: scale(1.1);
 }
 
 /* About Section */
