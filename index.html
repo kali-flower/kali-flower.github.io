@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shreya Daschoudhary</title>
+    <title>Shreya's Portfolio | Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
      <!-- Basic favicon -->
-     <link rel="icon" href="images\portfolio_icon.ico" type="image/x-icon">
+     <link rel="icon" href="images\portfolio_favicon.ico" type="image/x-icon">
     
-     <link rel="shortcut icon" href="images\portfolio_icon.ico" type="image/x-icon">
+     <link rel="shortcut icon" href="images\portfolio_favicon.ico" type="image/x-icon">
      
      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
@@ -60,6 +60,7 @@
             
             <div class="section-arrow">
                 <a href="#about" class="scroll-button down-arrow">
+                    <span class="arrow-text">About</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -73,14 +74,24 @@
                 <div class="about-content">
                     <p>This is the about section. Content will be added later.</p>
                 </div>
-                
-                <div class="section-arrow">
-                    <a href="#home" class="scroll-button up-arrow">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 19L12 5M12 5L19 12M12 5L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
+            </div>
+            
+            <div class="section-arrow top-arrow">
+                <a href="#home" class="scroll-button up-arrow">
+                    <span class="arrow-text">Home</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 19L12 5M12 5L19 12M12 5L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="section-arrow projects-arrow">
+                <a href="projects.html" class="scroll-button down-arrow">
+                    <span class="arrow-text">Projects</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
             </div>
         </section>
     </main>
@@ -94,6 +105,13 @@
     <script>
         // Simple scroll spy for navbar highlighting
         document.addEventListener('DOMContentLoaded', function() {
+            // Fade in on page load
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 10);
+            
             // Set Home as active by default when page loads
             document.querySelector('.nav-home').classList.add('active');
             
@@ -122,14 +140,32 @@
             // Smooth scroll for section arrows
             document.querySelectorAll('.scroll-button').forEach(button => {
                 button.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const href = this.getAttribute('href');
+                        const offsetTop = document.querySelector(href).offsetTop;
+                        
+                        window.scroll({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Page transition for external links
+            document.querySelectorAll('a[href="projects.html"]').forEach(link => {
+                link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const href = this.getAttribute('href');
-                    const offsetTop = document.querySelector(href).offsetTop;
                     
-                    window.scroll({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                    // Fade out current page
+                    document.body.style.transition = 'opacity 0.5s ease';
+                    document.body.style.opacity = '0';
+                    
+                    // Navigate after transition
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('href');
+                    }, 500);
                 });
             });
         });
