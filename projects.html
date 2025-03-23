@@ -8,12 +8,126 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Carousel Specific Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide.prev,
+        .carousel-slide.next {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Project card adjustments */
+        .project-card {
+            width: 80%;
+            max-width: 600px;
+        }
+
+        /* Navigation arrows */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            color: var(--color-darkest);
+            background-color: transparent;
+            border: 1px solid var(--color-darkest);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-arrow:hover {
+            background-color: var(--color-darkest);
+            color: var(--color-lightest);
+        }
+
+        .carousel-prev {
+            left: 20px;
+        }
+
+        .carousel-next {
+            right: 20px;
+        }
+
+        /* Dots navigation */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.8rem;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--color-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+        }
+
+        .carousel-dot-container.active {
+            border: 2px solid var(--color-medium);
+            border-radius: 50%;
+        }
+        
+        .carousel-dot:hover {
+            background-color: var(--color-medium);
+        }
+        
+        .carousel-dot.active {
+            background-color: var(--color-dark);
+        }
+
+        /* Hide the side navigation since we have carousel arrows */
+        .side-navigation {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="images\portfolio_icon.png" alt="Portfolio Icon" class="logo-icon">
+                <img src="images/portfolio_icon.png" alt="Portfolio Icon" class="logo-icon">
                 Shreya Daschoudhary
             </div>
             <ul class="nav-links">
@@ -28,110 +142,362 @@
     <main class="container">
         <h1 class="page-title">Some Things I've Worked On...</h1>
         
-        <div class="projects-grid">
-            <!-- Project Card 1 -->
-            <div class="project-card">
-                <div class="project-description">TODO</div>
-                <h2 class="project-title">TODO</h2>
-                <div class="project-image">
-                    <img src="https://via.placeholder.com/600x350" alt="TODO">
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <!-- Project 1 -->
+                <div class="carousel-slide active" data-index="0">
+                    <div class="project-card">
+                        <div class="project-description">Machine Learning Project</div>
+                        <h2 class="project-title">Sentiment Analysis Tool</h2>
+                        <div class="project-image">
+                            <img src="https://via.placeholder.com/600x350" alt="Sentiment Analysis Tool">
+                        </div>
+                        <p class="project-details">
+                            Built a real-time sentiment analysis tool that processes social media feeds to categorize consumer sentiment about brands and products, achieving 87% accuracy.
+                        </p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>NLTK</span>
+                            <span>React</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="github-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="external-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <p class="project-details">
-                    TODO
-                </p>
-                <div class="project-tech">
-                    <span>TODO</span>
+
+                <!-- Project 2 -->
+                <div class="carousel-slide" data-index="1">
+                    <div class="project-card">
+                        <div class="project-description">Web Application</div>
+                        <h2 class="project-title">Personal Finance Dashboard</h2>
+                        <div class="project-image">
+                            <img src="https://via.placeholder.com/600x350" alt="Finance Dashboard">
+                        </div>
+                        <p class="project-details">
+                            Designed and developed a financial planning application with visualizations for expense tracking, budget management, and investment monitoring.
+                        </p>
+                        <div class="project-tech">
+                            <span>JavaScript</span>
+                            <span>Vue.js</span>
+                            <span>D3.js</span>
+                            <span>Firebase</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="github-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="external-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="project-links">
-                    <a href="#" class="github-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="external-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
-                        </svg>
-                    </a>
+
+                <!-- Project 3 -->
+                <div class="carousel-slide" data-index="2">
+                    <div class="project-card">
+                        <div class="project-description">Mobile Development</div>
+                        <h2 class="project-title">Fitness Tracker App</h2>
+                        <div class="project-image">
+                            <img src="https://via.placeholder.com/600x350" alt="Fitness App">
+                        </div>
+                        <p class="project-details">
+                            Created a cross-platform fitness application that tracks workouts, provides personalized recommendations, and integrates with wearable devices.
+                        </p>
+                        <div class="project-tech">
+                            <span>React Native</span>
+                            <span>TypeScript</span>
+                            <span>Node.js</span>
+                            <span>MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="github-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="external-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="carousel-slide" data-index="3">
+                    <div class="project-card">
+                        <div class="project-description">Data Visualization</div>
+                        <h2 class="project-title">Climate Change Dashboard</h2>
+                        <div class="project-image">
+                            <img src="https://via.placeholder.com/600x350" alt="Climate Dashboard">
+                        </div>
+                        <p class="project-details">
+                            Built an interactive data visualization platform that presents climate data trends over time with customizable parameters and export capabilities.
+                        </p>
+                        <div class="project-tech">
+                            <span>D3.js</span>
+                            <span>React</span>
+                            <span>Python</span>
+                            <span>AWS</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="github-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="external-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="carousel-slide" data-index="4">
+                    <div class="project-card">
+                        <div class="project-description">Backend Development</div>
+                        <h2 class="project-title">E-commerce API</h2>
+                        <div class="project-image">
+                            <img src="https://via.placeholder.com/600x350" alt="E-commerce API">
+                        </div>
+                        <p class="project-details">
+                            Developed a comprehensive e-commerce API with secure payment processing, inventory management, and order tracking functionality.
+                        </p>
+                        <div class="project-tech">
+                            <span>Node.js</span>
+                            <span>Express</span>
+                            <span>PostgreSQL</span>
+                            <span>Docker</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="github-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="external-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Project Card 2 -->
-            <div class="project-card">
-                <div class="project-description">TODO</div>
-                <h2 class="project-title">TODO</h2>
-                <div class="project-image">
-                    <img src="https://via.placeholder.com/600x350" alt="TODO">
-                </div>
-                <p class="project-details">
-                    TODO
-                </p>
-                <div class="project-tech">
-                    <span>TODO</span>
-                </div>
-                <div class="project-links">
-                    <a href="#" class="github-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="external-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M14 4h-13v18h20v-11h1v12h-22v-20h14v1zm10 5h-1v-6.293l-11.646 11.647-.708-.708 11.647-11.646h-6.293v-1h8v8z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
+            <!-- Carousel Navigation -->
+            <button class="carousel-arrow carousel-prev">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="carousel-arrow carousel-next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
 
-            <!-- Add more project cards as needed -->
+            <!-- Dots Navigation -->
+            <div class="carousel-dots">
+                <!-- Dots will be added dynamically with JavaScript -->
+            </div>
         </div>
     </main>
 
-    <!-- Add this right after the closing </main> tag but before the footer -->
-<div class="side-navigation">
-    <a href="index.html" class="side-arrow left-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
-    <a href="contact.html" class="side-arrow right-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </a>
-</div>
+    <!-- Side navigation (hidden, replaced by carousel arrows) -->
+    <div class="side-navigation">
+        <a href="index.html" class="side-arrow left-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+        <a href="contact.html" class="side-arrow right-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
 
     <footer>
         <div class="footer-content">
             <p>&copy; 2025 Shreya Daschoudhary. All rights reserved.</p>
         </div>
     </footer>
-</body>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fade in on page load
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '1';
-        }, 10);
-        
-        // Handle transitions back to home page
-        document.querySelectorAll('a[href="index.html"], a[href="./index.html"], a[href="/"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Fade out
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fade in on page load
+            document.body.style.opacity = '0';
+            setTimeout(() => {
                 document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '0';
+                document.body.style.opacity = '1';
+            }, 10);
+            
+            // Carousel functionality
+            const track = document.querySelector('.carousel-track');
+            const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+            const nextButton = document.querySelector('.carousel-next');
+            const prevButton = document.querySelector('.carousel-prev');
+            const dotsNav = document.querySelector('.carousel-dots');
+            
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            
+            // Create dots
+            slides.forEach((_, index) => {
+                const dotContainer = document.createElement('div');
+                dotContainer.classList.add('carousel-dot-container');
+                if (index === 0) dotContainer.classList.add('active');
                 
-                // Navigate after transition
-                setTimeout(() => {
-                    window.location.href = this.getAttribute('href');
-                }, 500);
+                const dot = document.createElement('div');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                
+                dotContainer.appendChild(dot);
+                dotsNav.appendChild(dotContainer);
+                
+                // Add click event to dot
+                dotContainer.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            const dots = Array.from(document.querySelectorAll('.carousel-dot-container'));
+            
+            // Set initial position
+            updateCarousel();
+            
+            // Next button event
+            nextButton.addEventListener('click', () => {
+                if (currentIndex === totalSlides - 1) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex++;
+                }
+                updateCarousel();
+            });
+            
+            // Previous button event
+            prevButton.addEventListener('click', () => {
+                if (currentIndex === 0) {
+                    currentIndex = totalSlides - 1;
+                } else {
+                    currentIndex--;
+                }
+                updateCarousel();
+            });
+            
+            // Go to specific slide
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+            }
+            
+            // Update carousel display
+            function updateCarousel() {
+                // Update track position
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                
+                // Update active state for slides
+                slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev', 'next');
+                    
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    } else if (index === getPrevIndex()) {
+                        slide.classList.add('prev');
+                    } else if (index === getNextIndex()) {
+                        slide.classList.add('next');
+                    }
+                });
+                
+                // Update active state for dots
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                    dot.querySelector('.carousel-dot').classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            // Get previous slide index
+            function getPrevIndex() {
+                return currentIndex === 0 ? totalSlides - 1 : currentIndex - 1;
+            }
+            
+            // Get next slide index
+            function getNextIndex() {
+                return currentIndex === totalSlides - 1 ? 0 : currentIndex + 1;
+            }
+            
+            // Handle keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    prevButton.click();
+                } else if (e.key === 'ArrowRight') {
+                    nextButton.click();
+                }
+            });
+            
+            // Handle swipe gestures
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            track.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const threshold = 50; // Minimum distance for swipe
+                if (touchEndX < touchStartX - threshold) {
+                    // Swipe left
+                    nextButton.click();
+                } else if (touchEndX > touchStartX + threshold) {
+                    // Swipe right
+                    prevButton.click();
+                }
+            }
+            
+            // Handle transitions back to home page
+            document.querySelectorAll('a[href="index.html"], a[href="./index.html"], a[href="/"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Fade out
+                    document.body.style.transition = 'opacity 0.5s ease';
+                    document.body.style.opacity = '0';
+                    
+                    // Navigate after transition
+                    setTimeout(() => {
+                        window.location.href = this.getAttribute('href');
+                    }, 500);
+                });
             });
         });
-    });
-</script>
+    </script>
+</body>
 </html>
