@@ -25,6 +25,8 @@ Want to tweak the theme? Edit:
 
 ## 📬 Contact Me  
 📧 sdaschou@uci.edu 
+
 🔗 https://www.linkedin.com/in/shreya-daschoudhary-44a238309/
 
-💖 **Thanks for visiting!** Feel free to fork, star ⭐, or send feedback!  
+## 💖 Thanks for visiting!
+Feel free to fork, star ⭐, or send feedback!  
