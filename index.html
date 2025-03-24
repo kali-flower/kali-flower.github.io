@@ -27,8 +27,6 @@
     padding: 30px;
     margin-bottom: 40px;
     overflow: visible;
-    
-    /* Border with gaps */
     border: none;
     background: transparent;
     position: relative;
@@ -42,20 +40,9 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 2px solid #8e44ad; /* Purple border */
+    border: 2px solid #5f0f75; /* Purple border */
     border-radius: 20px;
     z-index: -1;
-    
-    /* Create the gap for large butterfly */
-    clip-path: polygon(
-        0% 0%, 
-        80% 0%, /* Start gap on top */
-        79% 30%, /* Go down */
-        100% 30%, /* Go right to edge */
-        100% 100%, /* Down to bottom right corner */
-        0% 100%, /* Bottom left corner */
-        0% 0% /* Back to start */
-    );
 }
 
 /* Add the small additional border segment */
@@ -64,20 +51,12 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 21%; /* Match the gap width from above */
-    height: 30%; /* Match the gap height from above */
-    border-top: 2px solid #8e44ad; /* Just top border */
-    border-right: 2px solid #8e44ad; /* Just right border */
+    width: 25%; /* Match the gap width from above */
+    height: 35%; /* Match the gap height from above */
+    border-top: 2px solid #5f0f75; /* Just top border */
+    border-right: 2px solid #5f0f75; /* Just right border */
     border-top-right-radius: 20px; /* Match main container radius */
     z-index: -1;
-    
-    /* Create gap for small butterfly */
-    clip-path: polygon(
-        0% 0%,
-        80% 0%,
-        80% 100%,
-        0% 100%
-    );
 }
 
 /* Make sure the butterfly containers are on top */
