@@ -8,68 +8,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="butterfly.css">
 
      <!-- Basic favicon -->
-     <link rel="icon" href="images\portfolio_favicon.ico" type="image/x-icon">
-    
-     <link rel="shortcut icon" href="images\portfolio_favicon.ico" type="image/x-icon">
-     
+     <link rel="icon" href="images/portfolio_favicon.ico" type="image/x-icon">
+     <link rel="shortcut icon" href="images/portfolio_favicon.ico" type="image/x-icon">
      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
      
      <!-- For Apple devices -->
      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-
-    <style>
-/* Butterfly Animation Styles */
-.hero-content-container {
-    position: relative;
-    padding: 30px;
-    margin-bottom: 40px;
-    overflow: visible;
-    background: transparent;
-}
-
-.butterfly-container {
-    position: absolute;
-    top: -30px;
-    right: -30px;
-    width: 120px;
-    height: 100px;
-    z-index: 10;
-}
-
-.butterfly {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    background-image: url('images/butterfly-1.png');
-}
-
-.butterfly.animate {
-    animation: flap-wings 0.5s steps(1) 2;
-}
-
-@keyframes flap-wings {
-    0%      { background-image: url('images/butterfly-1.png'); }
-    14.28%  { background-image: url('images/butterfly-2.png'); }
-    28.57%  { background-image: url('images/butterfly-3.png'); }
-    42.85%  { background-image: url('images/butterfly-4.png'); }
-    57.14%  { background-image: url('images/butterfly-5.png'); }
-    71.42%  { background-image: url('images/butterfly-6.png'); }
-    85.71%  { background-image: url('images/butterfly-7.png'); }
-    100%    { background-image: url('images/butterfly-1.png'); }
-}
-    </style>
 </head>
 <body class="home-page">
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="images\portfolio_icon.png" alt="Portfolio Icon" class="logo-icon">
+                <img src="images/portfolio_icon.png" alt="Portfolio Icon" class="logo-icon">
                 Shreya Daschoudhary
             </div>
             <ul class="nav-links">
@@ -140,7 +94,7 @@
                 <a href="projects.html" class="scroll-button down-arrow">
                     <span class="arrow-text">Projects</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-lienjoin="round"/>
                     </svg>
                 </a>
             </div>
@@ -153,121 +107,6 @@
         </div>
     </footer>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const butterfly = document.getElementById('butterfly-animation');
-    
-    // Page load fade-in and animation
-    function initializePageLoad() {
-        document.body.style.opacity = '0';
-        setTimeout(() => {
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '1';
-            
-            // Play butterfly animation
-            playButterflyAnimation(butterfly);
-        }, 10);
-    }
-    
-    // Butterfly animation function
-    function playButterflyAnimation(butterflyElement) {
-        butterflyElement.classList.add('animate');
-        
-        // Optional: Add event listener for animation iteration
-        butterflyElement.addEventListener('animationiteration', () => {
-            // You can add custom logic here if needed
-        });
-    }
-    
-    // Navbar active state and scroll spy
-    function initializeNavbarScrollSpy() {
-        // Set Home as active by default when page loads
-        document.querySelector('.nav-home').classList.add('active');
-        
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= sectionTop - 100) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.classList.contains(`nav-${current}`)) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    }
-    
-    // Smooth scrolling for section arrows
-    function initializeSmoothScroll() {
-        document.querySelectorAll('.scroll-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const href = this.getAttribute('href');
-                    const targetSection = document.querySelector(href);
-                    
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-            });
-        });
-    }
-    
-    // Page transition for external links
-    function initializePageTransitions() {
-        document.querySelectorAll('a[href="projects.html"], a[href="contact.html"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Fade out current page
-                document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '0';
-                
-                // Navigate after transition
-                setTimeout(() => {
-                    window.location.href = this.getAttribute('href');
-                }, 500);
-            });
-        });
-    }
-    
-    // Replay butterfly animation when returning to home section
-    function initializeHomeReplay() {
-        document.querySelector('a[href="#home"]').addEventListener('click', function() {
-            setTimeout(() => {
-                const butterfly = document.getElementById('butterfly-animation');
-                butterfly.classList.remove('animate');
-                void butterfly.offsetWidth; // Trigger reflow
-                playButterflyAnimation(butterfly);
-            }, 500);
-        });
-    }
-    
-    // Initialize all functionalities
-    function init() {
-        initializePageLoad();
-        initializeNavbarScrollSpy();
-        initializeSmoothScroll();
-        initializePageTransitions();
-        initializeHomeReplay();
-    }
-    
-    // Start the initialization
-    init();
-});
-    </script>
+    <script src="butterfly.js"></script>
 </body>
 </html>
