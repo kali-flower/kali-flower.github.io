@@ -21,81 +21,48 @@
      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
     <style>
-        /* Butterfly Animation Styles */
-        .hero-content-container {
+/* Butterfly Animation Styles */
+.hero-content-container {
     position: relative;
     padding: 30px;
     margin-bottom: 40px;
     overflow: visible;
-    border: none;
     background: transparent;
-    position: relative;
 }
 
-/* Create the border with gaps using multiple elements */
-.hero-content-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border: 2px solid #5f0f75; /* Purple border */
-    border-radius: 20px;
-    z-index: -1;
-}
-
-/* Add the small additional border segment */
-.hero-content-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 25%; /* Match the gap width from above */
-    height: 35%; /* Match the gap height from above */
-    border-top: 2px solid #5f0f75; /* Just top border */
-    border-right: 2px solid #5f0f75; /* Just right border */
-    border-top-right-radius: 20px; /* Match main container radius */
-    z-index: -1;
-}
-
-/* Make sure the butterfly containers are on top */
 .butterfly-container {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 120px;
+    height: 100px;
     z-index: 10;
 }
 
-        .butterfly-container {
-            position: absolute;
-            top: -30px;
-            right: -30px;
-            width: 120px;
-            height: 100px;
-            z-index: 10;
-        }
+.butterfly {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url('images/butterfly-1.png');
+}
 
-        .butterfly {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background-image: url('images/butterfly-1.png');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-        }
+.butterfly.animate {
+    animation: flap-wings 0.5s steps(1) 2;
+}
 
-        .butterfly.animate {
-            animation: flap-wings 0.5s steps(1) 2;
-        }
-
-        @keyframes flap-wings {
-            0% { background-image: url('images/butterfly-1.png'); }
-            14.28% { background-image: url('images/butterfly-2.png'); }
-            28.57% { background-image: url('images/butterfly-3.png'); }
-            42.85% { background-image: url('images/butterfly-4.png'); }
-            57.14% { background-image: url('images/butterfly-5.png'); }
-            71.42% { background-image: url('images/butterfly-6.png'); }
-            85.71% { background-image: url('images/butterfly-7.png'); }
-        }
+@keyframes flap-wings {
+    0%      { background-image: url('images/butterfly-1.png'); }
+    14.28%  { background-image: url('images/butterfly-2.png'); }
+    28.57%  { background-image: url('images/butterfly-3.png'); }
+    42.85%  { background-image: url('images/butterfly-4.png'); }
+    57.14%  { background-image: url('images/butterfly-5.png'); }
+    71.42%  { background-image: url('images/butterfly-6.png'); }
+    85.71%  { background-image: url('images/butterfly-7.png'); }
+    100%    { background-image: url('images/butterfly-1.png'); }
+}
     </style>
 </head>
 <body class="home-page">
@@ -187,89 +154,120 @@
     </footer>
 
     <script>
-        // Simple scroll spy for navbar highlighting
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fade in on page load
-            document.body.style.opacity = '0';
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 0.5s ease';
-                document.body.style.opacity = '1';
-                
-                // Play butterfly animation when page is loaded
-                const butterfly = document.getElementById('butterfly-animation');
-                butterfly.classList.add('animate');
-                
-                // Reset animation when it's done so it can be played again
-                butterfly.addEventListener('animationend', function() {
-                    butterfly.classList.remove('animate');
-                });
-            }, 10);
+document.addEventListener('DOMContentLoaded', function() {
+    const butterfly = document.getElementById('butterfly-animation');
+    
+    // Page load fade-in and animation
+    function initializePageLoad() {
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '1';
             
-            // Set Home as active by default when page loads
-            document.querySelector('.nav-home').classList.add('active');
+            // Play butterfly animation
+            playButterflyAnimation(butterfly);
+        }, 10);
+    }
+    
+    // Butterfly animation function
+    function playButterflyAnimation(butterflyElement) {
+        butterflyElement.classList.add('animate');
+        
+        // Optional: Add event listener for animation iteration
+        butterflyElement.addEventListener('animationiteration', () => {
+            // You can add custom logic here if needed
+        });
+    }
+    
+    // Navbar active state and scroll spy
+    function initializeNavbarScrollSpy() {
+        // Set Home as active by default when page loads
+        document.querySelector('.nav-home').classList.add('active');
+        
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
             
-            window.addEventListener('scroll', function() {
-                const sections = document.querySelectorAll('section');
-                const navLinks = document.querySelectorAll('.nav-links a');
-                
-                let current = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (pageYOffset >= sectionTop - 100) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.classList.contains(`nav-${current}`)) {
-                        link.classList.add('active');
-                    }
-                });
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
             });
             
-            // Smooth scroll for section arrows
-            document.querySelectorAll('.scroll-button').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    if (this.getAttribute('href').startsWith('#')) {
-                        e.preventDefault();
-                        const href = this.getAttribute('href');
-                        const offsetTop = document.querySelector(href).offsetTop;
-                        
-                        window.scroll({
-                            top: offsetTop,
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.classList.contains(`nav-${current}`)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    }
+    
+    // Smooth scrolling for section arrows
+    function initializeSmoothScroll() {
+        document.querySelectorAll('.scroll-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const targetSection = document.querySelector(href);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
                             behavior: 'smooth'
                         });
                     }
-                });
+                }
             });
-            
-            // Page transition for external links
-            document.querySelectorAll('a[href="projects.html"], a[href="contact.html"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Fade out current page
-                    document.body.style.transition = 'opacity 0.5s ease';
-                    document.body.style.opacity = '0';
-                    
-                    // Navigate after transition
-                    setTimeout(() => {
-                        window.location.href = this.getAttribute('href');
-                    }, 500);
-                });
-            });
-            
-            // Play animation if user returns to home section
-            document.querySelector('a[href="#home"]').addEventListener('click', function() {
+        });
+    }
+    
+    // Page transition for external links
+    function initializePageTransitions() {
+        document.querySelectorAll('a[href="projects.html"], a[href="contact.html"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Fade out current page
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '0';
+                
+                // Navigate after transition
                 setTimeout(() => {
-                    const butterfly = document.getElementById('butterfly-animation');
-                    butterfly.classList.add('animate');
+                    window.location.href = this.getAttribute('href');
                 }, 500);
             });
         });
+    }
+    
+    // Replay butterfly animation when returning to home section
+    function initializeHomeReplay() {
+        document.querySelector('a[href="#home"]').addEventListener('click', function() {
+            setTimeout(() => {
+                const butterfly = document.getElementById('butterfly-animation');
+                butterfly.classList.remove('animate');
+                void butterfly.offsetWidth; // Trigger reflow
+                playButterflyAnimation(butterfly);
+            }, 500);
+        });
+    }
+    
+    // Initialize all functionalities
+    function init() {
+        initializePageLoad();
+        initializeNavbarScrollSpy();
+        initializeSmoothScroll();
+        initializePageTransitions();
+        initializeHomeReplay();
+    }
+    
+    // Start the initialization
+    init();
+});
     </script>
 </body>
 </html>
